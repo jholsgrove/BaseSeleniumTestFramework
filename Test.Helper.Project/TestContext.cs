@@ -35,7 +35,5 @@ namespace Test.Helper.Project
 		public Stack<Action> TeardownActions => this.teardownActions ?? (this.teardownActions = new Stack<Action>());
 
 		public Guid webhookTestEndpointId;
-
-		public string CurrentUserToUse;
 	}
 }
