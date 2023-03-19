@@ -21,11 +21,9 @@ namespace Api.Test.Project.Features.CatalogApi
         [Then(@"the item gets created")]
         public void ThenTheItemGetsCreated()
         {
-            var postedCatalogItem = JsonConvert.DeserializeObject<CatalogItemDto>(Context.LastApiResponse);
-
             Assert.That(Context.RecordedStatusCode, Is.EqualTo(HttpStatusCode.Created));
-            Assert.That(postedCatalogItem.Name, Is.EqualTo(Context.CatalogItem.Name));
-            Assert.That(postedCatalogItem.Price, Is.EqualTo(Context.CatalogItem.Price));
+            Assert.That(Context.PostedCatalogItem.Name, Is.EqualTo(Context.CatalogItem.Name));
+            Assert.That(Context.PostedCatalogItem.Price, Is.EqualTo(Context.CatalogItem.Price));
         }
     }
 }
