@@ -58,5 +58,10 @@ namespace Test.Helper.Project
 
 			return response;
 		}
-	}
+
+        public static T Deserialise<T>(string json)
+        {
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+    }
 }
