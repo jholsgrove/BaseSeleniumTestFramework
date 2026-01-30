@@ -1,11 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using TechTalk.SpecFlow;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Http;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Reqnroll;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -14,8 +8,6 @@ namespace Test.Helper.Project.Hooks
 	[Binding]
 	public class TestRunHooks
 	{
-		//public static RestHelper Rest { get; set; }
-
 		public static CookieContainer GlobalCookieContainer = new CookieContainer();
 		public static CookieContainer UserCookieContainer = new CookieContainer();
 		public static ClientHelper ClientHelper { get; set; }

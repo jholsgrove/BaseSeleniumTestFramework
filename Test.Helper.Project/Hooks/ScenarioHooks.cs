@@ -1,7 +1,7 @@
-﻿using TechTalk.SpecFlow;
+﻿using Reqnroll;
 using System.Net;
 using OpenQA.Selenium;
-using BoDi;
+using Reqnroll.BoDi;
 
 namespace Test.Helper.Project.Hooks
 {

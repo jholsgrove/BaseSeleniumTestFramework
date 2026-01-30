@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Collections.Generic;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using Test.Helper.Project;
 using Test.Helper.Project.DTOs;
 

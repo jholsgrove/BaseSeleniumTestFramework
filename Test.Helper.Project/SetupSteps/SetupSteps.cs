@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Assist;
+﻿using Reqnroll;
+using Reqnroll.Assist;
+using System.Text.Json;
 using Test.Helper.Project.DTOs;
 
 namespace Test.Helper.Project.SetupSteps
@@ -17,9 +17,9 @@ namespace Test.Helper.Project.SetupSteps
         }
 
         [Given(@"I create a new catalog item")]
-        public async Task GivenICreateANewCatalogItem(Table table)
+        public async Task GivenICreateANewCatalogItem(DataTable table)
         {
-            // Create an object to post from the specflow table
+            // Create an object to post from the reqnroll table
             Context.CatalogItem = table.CreateInstance<CatalogItemDto>();
 
             // Post it to the endpoint
@@ -30,7 +30,7 @@ namespace Test.Helper.Project.SetupSteps
             Context.RecordedStatusCode = postItem.StatusCode;
 
             // Deserialise the object
-            Context.PostedCatalogItem = JsonConvert.DeserializeObject<CatalogItemDto>(Context.LastApiResponse);
+            Context.PostedCatalogItem = JsonSerializer.Deserialize<CatalogItemDto>(Context.LastApiResponse);
 
             // Put a delete call onto the stack to teardown after the scenario using the deserialised object id/ guid
             Context.TeardownActions.Push(async () =>

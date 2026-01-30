@@ -1,28 +1,28 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
 using System.Text;
+using System.Text.Json;
 using Test.Helper.Project.Hooks;
 
 namespace Test.Helper.Project
 {
 
-		public class StandardResponse<T>
+	public class StandardResponse<T>
+	{
+		public T Response => Deserialize();
+		public HttpStatusCode StatusCode { get; set; }
+		public bool IsSuccess { get; set; }
+		public string TextContent { get; set; }
+		private readonly string content;
+		public StandardResponse(string content)
 		{
-			public T Response => Deserialize();
-			public HttpStatusCode StatusCode { get; set; }
-			public bool IsSuccess { get; set; }
-			public string TextContent { get; set; }
-			private readonly string content;
-			public StandardResponse(string content)
-			{
-				this.content = content;
-			}
-
-			private T Deserialize()
-			{
-				return JsonConvert.DeserializeObject<T>(this.content);
-			}
+			this.content = content;
 		}
+
+		private T Deserialize()
+		{
+			return JsonSerializer.Deserialize<T>(this.content);
+		}
+	}
 
 	public class RestManager
 	{
@@ -33,8 +33,10 @@ namespace Test.Helper.Project
 
 			var webRequest = new HttpRequestMessage(HttpMethod.Post, baseUrl);
 			{
-				webRequest.Content = jsonifyContent ? new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json") : (HttpContent)body;
-			}
+                webRequest.Content = jsonifyContent
+                    ? new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json")
+                    : (HttpContent)body;
+            }
 
 			var send = await client.SendAsync(webRequest);
 			var response = new StandardResponse<T>(send.Content.ReadAsStringAsync().Result);
@@ -61,7 +63,7 @@ namespace Test.Helper.Project
 
         public static T Deserialise<T>(string json)
         {
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonSerializer.Deserialize<T>(json);
         }
     }
 }
